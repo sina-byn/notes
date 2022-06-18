@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
 
 :root {
     --ff-main: 'Lato', sans-serif;
@@ -19,4 +19,17 @@ body {
 
 body {
     font-family: var(--ff-main);
+}
+
+a {
+    text-decoration: none;
+}
+
+input,
+textarea {
+    outline: 0;
+}
+
+ul {
+    list-style-type: none;
 }

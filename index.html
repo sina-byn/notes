@@ -2,10 +2,13 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" class="h-screen">
+    <meta name="viewport" content="=device-, initial-scale=1.0">
     <title>Notes | By Sina Bayandorian</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -13,11 +16,11 @@
                 extend: {
                     colors: {
                         primary: '#404040',
-                        'primary-light': '#757575',
-                        'primary-medium': '#404040',
+                        'primary-light': '#656565',
+                        'primary-medium': '#333333',
                         'primary-dark': '#141414',
                         light: '#F8F8F8',
-                        success: '#00A82E',
+                        success: '#00a82e',
                     },
                 }
             }
@@ -25,8 +28,76 @@
     </script>
 </head>
 
-<body class="h-screen w-screen bg-dark">
-
+<body class="min-h-screen">
+    <!-- Sidebar - Menu -->
+    <aside
+        class="flex flex-col justify-between w-[17%] h-screen bg-primary-dark text-primary-light text-sm font-bold py-5">
+        <section>
+            <section class="user-profile flex items-center gap-x-3 pl-3">
+                <img src="./assets/images/sample.jfif" alt="Profile" class="w-10 rounded-full">
+                <div class="flex items-center cursor-pointer">
+                    <p>sina</p>
+                    <i class="fa-solid fa-caret-down fa-sm mt-1 ml-1"></i>
+                </div>
+            </section>
+            <section class="search-box flex items-center justify-center relative pr-3 mt-6 pl-3">
+                <input type="text" placeholder="Search Notes..."
+                    class="w-full h-8 bg-primary-medium text-gray-200 font-bold rounded-lg placeholder:text-primary-light pl-2 pr-10 pb-px">
+                <i class="fa-solid fa-search w-4 absolute right-6"></i>
+            </section>
+            <button type="button"
+                class="flex items-center gap-x-2 w-full h-10 text-gray-200 mt-9 mb-5 pl-3 active:bg-primary">
+                <div class="flex items-center justify-center w-6 h-6 rounded-full bg-success p-1">
+                    <i class="fa-solid fa-plus mt-px mr-px"></i>
+                </div>
+                <span class="text-[13px] font-bold">New Note</span>
+            </button>
+            <nav class="navbar">
+                <ul class="text-primary-medium text-base font-bold">
+                    <li class="flex items-center gap-x-1 w-full py-2 cursor-pointer">
+                        <i class="fa-solid fa-caret-right text-xs mx-1"></i>
+                        <i class="fa-solid fa-star w-5"></i>
+                        Shortcuts
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full bg-primary text-gray-200 pl-3 py-2 cursor-pointer">
+                        <i class="fa-solid fa-note-sticky w-5 ml-2"></i>
+                        All Notes
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full py-2 cursor-pointer">
+                        <i class="fa-solid fa-caret-right text-xs mx-1"></i>
+                        <i class="fa-solid fa-book-open w-5"></i>
+                        Shortcuts
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full pl-3 py-2 cursor-pointer">
+                        <i class="fa-solid fa-user-group w-5 ml-[6px] mr-px"></i>
+                        Shared with Me
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full pl-3 py-2 cursor-pointer">
+                        <i class="fa-solid fa-tags w-5 ml-2"></i>
+                        Tags
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full pl-3 py-2 cursor-pointer">
+                        <i class="fa-solid fa-trash w-5 ml-2"></i>
+                        Trash
+                    </li>
+                    <li class="flex items-center gap-x-1 w-full pl-3 py-2 cursor-pointer">
+                        <i class="fa-solid fa-question-circle w-5 ml-2"></i>
+                        Guide
+                    </li>
+                </ul>
+            </nav>
+        </section>
+        <section class="bookmarklet-container flex flex-col items-center gap-y-6 w-full px-3 mb-2">
+            <p class="text-center text-primary text-[12px] cursor-default hover:text-gray-200">
+                Drag the box below into your bookmarks bar to add it to your bookmarks
+            </p>
+            <a href="/"
+                class="bookmarklet flex items-center gap-x-2 text-gray-200 border-[1px] border-dashed rounded-md p-1">
+                <i class="fa-solid fa-bookmark"></i>
+                My Notes
+            </a>
+        </section>
+    </aside>
 </body>
 
 </html>
