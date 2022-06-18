@@ -1,35 +1,46 @@
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap");
 
 :root {
-    --ff-main: 'Lato', sans-serif;
+  --ff-main: "Lato", sans-serif;
 }
 
 /* CSS Reset */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: inherit;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: inherit;
 }
 
 html,
 body {
-    min-height: 100vh;
+  min-height: 100vh;
 }
 
 body {
-    font-family: var(--ff-main);
+  font-family: var(--ff-main);
+  overflow-x: hidden;
 }
 
 a {
-    text-decoration: none;
+  text-decoration: none;
 }
 
 input,
 textarea {
-    outline: 0;
+  outline: 0;
 }
 
 ul {
-    list-style-type: none;
+  list-style-type: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: textfield;
+}
+
+[list]::-webkit-calendar-picker-indicator {
+    display: none !important;
 }
