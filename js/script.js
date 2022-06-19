@@ -9,9 +9,14 @@ const newNoteInp = newNoteSection.querySelector("textarea");
 const editNoteSection = document.querySelector(".edit-note-section");
 const editTitleInp = editNoteSection.querySelector("div input");
 const editNoteInp = editNoteSection.querySelector("textarea");
+const showNoteSection = document.querySelector(".show-note-section");
+const titleDisp = showNoteSection.querySelector(".title-disp");
+const noteDisp = showNoteSection.querySelector(".note-disp");
 
-// Variables
-let isEditModeEnabled = false,
+// Other Variables
+let isAddMode = false,
+    isNoteShown = false,
+    isEditModeEnabled = false,
     notesCount = 1,
     currentNoteIDX;
 
@@ -20,6 +25,7 @@ const showNewTextField = () => {
     newTitleInp.value = "";
     newNoteInp.value = "";
     newNoteSection.classList.replace("hidden", "flex");
+    isAddMode = true;
 };
 
 const submitNote = () => {
@@ -37,13 +43,18 @@ const submitNote = () => {
             newNoteSection.classList.replace("flex", "hidden");
             newTitleInp.value = "";
             newNoteInp.value = "";
-        } else {
+            indicateShownNote(null);
+            isNoteShown = false;
+        } else if (!isNoteShown) {
             const currentNote = document.querySelectorAll(".note-card")[currentNoteIDX];
             editNoteSection.classList.replace("flex", "hidden");
             currentNote.querySelector(".title").innerText = title;
             currentNote.querySelector(".note").innerText = note;
+            indicateShownNote(currentNote);
             isEditModeEnabled = false;
         }
+
+        isAddMode = false;
     }
 };
 
@@ -64,7 +75,7 @@ const cancelNote = () => {
     currentTitleInp.value = "";
     currentNoteInp.value = "";
 
-    (isEditModeEnabled) ? isEditModeEnabled = false : null;
+    (isEditModeEnabled) ? isEditModeEnabled = false: null;
 };
 
 const setNotesCount = () => {
@@ -81,39 +92,70 @@ const setNotesNum = () => {
 };
 
 const showNote = (e) => {
-    const targetNoteCard = e.target.parentElement.parentElement;
-    const title = targetNoteCard.querySelector(".title").innerText;
-    const note = targetNoteCard.querySelector(".note").innerText;
+    if (!isEditModeEnabled && !isAddMode) {
+        const targetNoteCard = e.target.parentElement.parentElement;
+        const title = targetNoteCard.querySelector(".title").innerText;
+        const note = targetNoteCard.querySelector(".note").innerText;
 
-    const showNoteSection = document.querySelector(".show-note-section");
-    const titleDisp = showNoteSection.querySelector(".title-disp");
-    const noteDisp = showNoteSection.querySelector(".note-disp");
+        showNoteSection.classList.replace("hidden", "flex");
+        titleDisp.innerText = title;
+        noteDisp.innerText = note;
 
-    showNoteSection.classList.replace("hidden", "flex");
-    titleDisp.innerText = title;
-    noteDisp.innerText = note;
+        indicateShownNote(targetNoteCard);
+        isNoteShown = true;
+
+        const noteCards = Array.from(targetNoteCard.parentElement.children);
+        currentNoteIDX = noteCards.indexOf(targetNoteCard);
+    }
 };
 
 const edtiNote = (e) => {
-    const targetNoteCard = e.target.parentElement.parentElement;
-    const noteIDX = targetNoteCard.querySelector(".note-num-disp").innerText - 1;
-    const title = targetNoteCard.querySelector(".title").innerText;
-    const note = targetNoteCard.querySelector(".note").innerText;
+    if (!isNoteShown && !isAddMode && !isEditModeEnabled) {
+        const targetNoteCard = e.target.parentElement.parentElement;
+        const noteIDX = targetNoteCard.querySelector(".note-num-disp").innerText - 1;
+        const title = targetNoteCard.querySelector(".title").innerText;
+        const note = targetNoteCard.querySelector(".note").innerText;
 
-    currentNoteIDX = noteIDX;
-    editNoteSection.classList.replace("hidden", "flex");
-    editTitleInp.value = title;
-    editNoteInp.value = note;
+        currentNoteIDX = noteIDX;
+        editNoteSection.classList.replace("hidden", "flex");
+        editTitleInp.value = title;
+        editNoteInp.value = note;
 
-    isEditModeEnabled = true;
+        isEditModeEnabled = true;
+    }
 };
 
 const deleteNote = (e) => {
     const targetNoteCard = e.target.parentElement.parentElement;
+    const noteCards = Array.from(targetNoteCard.parentElement.children);
     targetNoteCard.remove();
     notesCount--;
     setNotesCount();
     setNotesNum();
+
+
+    if (noteCards.indexOf(targetNoteCard) === currentNoteIDX) {
+        newNoteSection.classList.replace("flex", "hidden");
+        editNoteSection.classList.replace("flex", "hidden");
+        showNoteSection.classList.replace("flex", "hidden");
+    }
+};
+
+const indicateShownNote = (card) => {
+    const noteCards = document.querySelectorAll(".note-card");
+    noteCards.forEach(card => {
+        card.classList.remove("bg-secondary-dark");
+        card.classList.replace("text-gray-200", "text-secondary-medium");
+        card.querySelector(".note-num-disp").classList.replace("border-gray-200", "border-gray-400");
+        card.querySelector(".note-num-disp").classList.replace("text-gray-200", "text-gray-700");
+    });
+
+    const noteCard = card || noteCards[noteCards.length - 1];
+
+    noteCard.classList.add("bg-secondary-dark");
+    noteCard.classList.replace("text-secondary-medium", "text-gray-200");
+    noteCard.querySelector(".note-num-disp").classList.replace("border-gray-400", "border-gray-200");
+    noteCard.querySelector(".note-num-disp").classList.replace("text-gray-700", "text-gray-200");
 };
 
 const addNoteCard = (title, note) => {
@@ -122,12 +164,12 @@ const addNoteCard = (title, note) => {
     const cardData = `
         <section>
             <p
-                class="note-num-disp flex items-center justify-center w-5 h-5 text-xs border-px border-gray-400 rounded-full mb-2">
+                class="note-num-disp flex items-center justify-center w-5 h-5 text-gray-700 text-xs border-px border-gray-400 rounded-full mb-2">
                 ${++notesCount}
             </p>
             <div>
                 <p class="title text-gray-700">${title}</p>
-                <p class="note text-sm text-secondary-dark">
+                <p class="note text-sm">
                   ${note.slice(0, 22) + " ..."}
                 </p>
             </div>
@@ -137,7 +179,7 @@ const addNoteCard = (title, note) => {
     const showBtn = document.createElement("i");
     const editBtn = document.createElement("i");
     const deleteBtn = document.createElement("i");
-    cardBtns.className = "flex flex-col items-center justify-center gap-y-2 text-secondary-dark";
+    cardBtns.className = "flex flex-col items-center justify-center gap-y-2";
     showBtn.className = "show-note-btn fa-solid fa-external-link cursor-pointer hover:text-gray-600";
     editBtn.className = "edit-note-btn fa-solid fa-edit cursor-pointer hover:text-gray-600";
     deleteBtn.className = "delete-note-btn fa-solid fa-trash cursor-pointer hover:text-gray-600";
@@ -150,10 +192,12 @@ const addNoteCard = (title, note) => {
     cardBtns.append(editBtn);
     cardBtns.append(deleteBtn);
 
-    noteCard.className = "note-card flex justify-between border-b-px border-secondary border-opacity-75 py-3 px-3";
+    noteCard.className = "note-card flex justify-between text-secondary-medium border-b-px border-secondary border-opacity-75 py-3 px-3";
     noteCard.innerHTML = cardData;
     noteCard.append(cardBtns);
     notesList.append(noteCard);
+
+    isAddMode = false;
 };
 
 const initOnLoad = () => {
