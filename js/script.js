@@ -6,7 +6,6 @@ const cancelNoteBtn = document.querySelector(".cancel-note-btn");
 const newNoteSection = document.querySelector(".new-note-section");
 const newTitleInp = newNoteSection.querySelector("div input");
 const newNoteInp = newNoteSection.querySelector("textarea");
-const deleteBtns = document.querySelectorAll(".delete-note-btn");
 
 let notesCount = 1;
 
@@ -48,6 +47,18 @@ const cancelNote = () => {
     currentNoteInp.value = "";
 };
 
+const setNotesCount = () => {
+    const notesCountDisp = document.querySelector(".notes-count-disp");
+    notesCountDisp.innerText = notesCount + " notes";
+};
+
+const deleteNote = (e) => {
+    const targetNoteCard = e.target.parentElement.parentElement;
+    targetNoteCard.remove();
+    notesCount--;
+    setNotesCount();
+};
+
 const addNoteCard = (title, text) => {
     const notesList = document.querySelector(".notes-list");
     const noteCard = document.createElement("div");
@@ -64,36 +75,40 @@ const addNoteCard = (title, text) => {
                 </p>
             </div>
         </section>
-        <section class="flex flex-col items-center justify-center gap-y-2 text-secondary-dark">
-            <i class="fa-solid fa-external-link cursor-pointer hover:text-gray-600"></i>
-            <i class="fa-solid fa-edit cursor-pointer hover:text-gray-600"></i>
-            <i class="fa-solid fa-trash cursor-pointer hover:text-gray-600"></i>
-        </section>
     `;
+    const cardBtns = document.createElement("section");
+    const showBtn = document.createElement("i");
+    const editBtn = document.createElement("i");
+    const deleteBtn = document.createElement("i");
+    cardBtns.className = "flex flex-col items-center justify-center gap-y-2 text-secondary-dark";
+    showBtn.className = "show-note-btn fa-solid fa-external-link cursor-pointer hover:text-gray-600";
+    editBtn.className = "edit-note-btn fa-solid fa-edit cursor-pointer hover:text-gray-600";
+    deleteBtn.className = "delete-note-btn fa-solid fa-trash cursor-pointer hover:text-gray-600";
+
+    deleteBtn.onclick = deleteNote;
+
+    cardBtns.append(showBtn);
+    cardBtns.append(editBtn);
+    cardBtns.append(deleteBtn);
 
     noteCard.className = "card flex justify-between border-b-px border-secondary border-opacity-75 py-3 px-3";
     noteCard.innerHTML = cardData;
+    noteCard.append(cardBtns);
     notesList.append(noteCard);
 };
 
-const setNotesCount = () => {
-    const notesCountDisp = document.querySelector(".notes-count-disp");
-    notesCountDisp.innerText = notesCount + " notes";
-};
+const initOnLoad = () => {
+    const deleteBtns = document.querySelectorAll(".delete-note-btn");
 
-const deleteNote = (e) => {
-    const targetNoteCard = e.target.parentElement.parentElement;
-    targetNoteCard.remove();
-    notesCount--;
+    deleteBtns.forEach(btn => {
+        btn.onclick = deleteNote;
+    });
     setNotesCount();
 };
 
 // EventListeners
-window.onload = setNotesCount;
+window.onload = initOnLoad;
 newNoteBtn.onclick = showNewTextField;
 addNoteBtn.onclick = addNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
-deleteBtns.forEach(btn => {
-    btn.onclick = deleteNote;
-});
