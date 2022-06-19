@@ -131,7 +131,7 @@
                         </p>
                         <div>
                             <p class="title text-gray-700">Your First Note</p>
-                            <p class="text text-sm text-secondary-dark">
+                            <p class="note text-sm text-secondary-dark">
                                 Do Homework as supposed ...
                             </p>
                         </div>
@@ -157,10 +157,30 @@
             <section class="new-note-section hidden flex-col items-center w-full h-full bg-gray-50">
                 <div class="flex items-center justify-center w-full h-16 border-b-px border-secondary">
                     <label for="title-inp" class="text-lg mr-4">Title :</label>
-                    <input type="text" id="title-inp" class="bg-inherit text-lg border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
+                    <input type="text" id="title-inp"
+                        class="bg-inherit text-lg border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
                 </div>
-                <textarea id="" cols="30" rows="10" class="w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6"></textarea>
+                <textarea cols="30" rows="10"
+                    class="w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6"></textarea>
             </section>
+            <section class="show-note-section hidden flex-col items-center w-full h-full bg-gray-50">
+                <div
+                class="title-disp flex items-center justify-center w-full h-16 text-xl font-bold border-b-px border-secondary">
+                
+            </div>
+            <div class="note-disp w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6">
+                
+            </div>
+        </section>
+        <section class="edit-note-section hidden flex-col items-center w-full h-full bg-gray-50">
+            <div class="flex items-center justify-center w-full h-16 border-b-px border-secondary">
+                <label for="edit-title-inp" class="text-lg mr-4">Title :</label>
+                <input type="text" id="edit-title-inp"
+                    class="bg-inherit text-lg text-center border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
+            </div>
+            <textarea cols="30" rows="10"
+                class="w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6"></textarea>
+        </section>
         </main>
 
         <!-- Tools Sidebar -->
@@ -200,8 +220,7 @@
                 class="w-full aspect-square font-bold border-b-px border-r-px border-secondary scale-x-[-1]">
                 &#182;
             </button>
-            <div
-                class="col-span-2 flex items-center justify-center w-full border-b-px border-secondary py-2">
+            <div class="col-span-2 flex items-center justify-center w-full border-b-px border-secondary py-2">
                 <select id="font-list" class="w-10/12 text-sm border-px border-gray-700 outline-0 cursor-pointer">
                     <option value="serif">Font</option>
                     <option value="serif">Serif</option>
@@ -210,8 +229,7 @@
                     <option value="Monospace">Monospace</option>
                 </select>
             </div>
-            <div
-                class="col-span-2 flex items-center justify-center w-full border-b-px border-secondary py-2">
+            <div class="col-span-2 flex items-center justify-center w-full border-b-px border-secondary py-2">
                 <input type="number" id="font-size" value="20" list="font-size-list"
                     class="w-8/12 text-sm text-center border-px border-gray-700 outline-0 mr-1">
                 <label for="font-size">px</label>
@@ -258,7 +276,7 @@
                 <button type="button"
                     class="reset-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#128260;Reset</button>
                 <button type="button"
-                    class="add-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#9989;Done</button>
+                    class="submit-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#9989;Done</button>
             </section>
         </aside>
     </div>
