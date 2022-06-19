@@ -1,5 +1,6 @@
 // Variables - Constant
 const newNoteBtn = document.querySelector(".new-note-btn");
+const sideBtnsContainer = document.querySelector(".side-btns-container");
 const submitNoteBtn = document.querySelector(".submit-note-btn");
 const resetNoteBtn = document.querySelector(".reset-note-btn");
 const cancelNoteBtn = document.querySelector(".cancel-note-btn");
@@ -20,11 +21,15 @@ let isAddMode = false,
     notesCount = 1,
     currentNoteIDX;
 
+// Toolbar Variables
+const colorInput = document.querySelector("input[type='color']");
+
 // Functions
 const showNewTextField = () => {
     newTitleInp.value = "";
     newNoteInp.value = "";
     newNoteSection.classList.replace("hidden", "flex");
+    sideBtnsContainer.classList.replace("hidden", "initial");
     isAddMode = true;
 };
 
@@ -54,6 +59,8 @@ const submitNote = () => {
             isEditModeEnabled = false;
         }
 
+        sideBtnsContainer.classList.replace("initial", "hidden");
+
         isAddMode = false;
     }
 };
@@ -75,7 +82,9 @@ const cancelNote = () => {
     currentTitleInp.value = "";
     currentNoteInp.value = "";
 
-    (isEditModeEnabled) ? isEditModeEnabled = false: null;
+    sideBtnsContainer.classList.replace("initial", "hidden");
+    isAddMode = false;
+    isEditModeEnabled = false;
 };
 
 const setNotesCount = () => {
@@ -121,6 +130,7 @@ const edtiNote = (e) => {
         editTitleInp.value = title;
         editNoteInp.value = note;
 
+        sideBtnsContainer.classList.replace("hidden", "initial");
         isEditModeEnabled = true;
     }
 };
@@ -213,9 +223,17 @@ const initOnLoad = () => {
     setNotesCount();
 };
 
+colorInputHandler = (e) => {
+    const inputLabel = e.target.parentElement;
+    const color = e.target.value;
+    inputLabel.style.backgroundColor = color;
+};
+
 // EventListeners
 window.onload = initOnLoad;
 newNoteBtn.onclick = showNewTextField;
 submitNoteBtn.onclick = submitNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
+
+colorInput.oninput = colorInputHandler;
