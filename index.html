@@ -57,7 +57,7 @@
                     <i class="fa-solid fa-search w-4 absolute right-6"></i>
                 </section>
                 <button type="button"
-                    class="flex items-center gap-x-2 w-full h-10 text-gray-200 mt-9 mb-5 pl-3 active:bg-primary">
+                    class="new-note-btn flex items-center gap-x-2 w-full h-10 text-gray-200 mt-9 mb-5 pl-3 active:bg-primary">
                     <div class="flex items-center justify-center w-6 h-6 rounded-full bg-success p-1">
                         <i class="fa-solid fa-plus mt-px mr-px"></i>
                     </div>
@@ -154,7 +154,7 @@
                     <p>trust us with your future</p>
                 </div>
             </div>
-            <section class="flex flex-col items-center w-full h-full bg-gray-50">
+            <section class="new-note-section hidden flex-col items-center w-full h-full bg-gray-50">
                 <div class="flex items-center justify-center w-full h-16 border-b-px border-secondary">
                     <label for="title-inp" class="text-lg mr-4">Title :</label>
                     <input type="text" id="title-inp" class="bg-inherit text-lg border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
@@ -254,14 +254,16 @@
             </section>
             <section class="col-span-2 flex flex-col">
                 <button type="button"
-                    class="flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#10060;Cancel</button>
+                    class="cancel-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#10060;Cancel</button>
                 <button type="button"
-                    class="flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#128260;Reset</button>
+                    class="reset-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#128260;Reset</button>
                 <button type="button"
-                    class="flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#9989;Done</button>
+                    class="add-note-btn flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-dark">&#9989;Done</button>
             </section>
         </aside>
     </div>
+
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
