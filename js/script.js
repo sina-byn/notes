@@ -52,11 +52,20 @@ const setNotesCount = () => {
     notesCountDisp.innerText = notesCount + " notes";
 };
 
+const setNotesNum = () => {
+    const noteNumDisps = document.querySelectorAll(".note-num-disp");
+
+    noteNumDisps.forEach((numDisp, idx) => {
+        numDisp.innerText = ++idx;
+    });
+};
+
 const deleteNote = (e) => {
     const targetNoteCard = e.target.parentElement.parentElement;
     targetNoteCard.remove();
     notesCount--;
     setNotesCount();
+    setNotesNum();
 };
 
 const addNoteCard = (title, text) => {
@@ -65,7 +74,7 @@ const addNoteCard = (title, text) => {
     const cardData = `
         <section>
             <p
-                class="flex items-center justify-center w-5 h-5 text-xs border-px border-gray-400 rounded-full mb-2">
+                class="note-num-disp flex items-center justify-center w-5 h-5 text-xs border-px border-gray-400 rounded-full mb-2">
                 ${++notesCount}
             </p>
             <div>
@@ -91,7 +100,7 @@ const addNoteCard = (title, text) => {
     cardBtns.append(editBtn);
     cardBtns.append(deleteBtn);
 
-    noteCard.className = "card flex justify-between border-b-px border-secondary border-opacity-75 py-3 px-3";
+    noteCard.className = "note-card flex justify-between border-b-px border-secondary border-opacity-75 py-3 px-3";
     noteCard.innerHTML = cardData;
     noteCard.append(cardBtns);
     notesList.append(noteCard);
