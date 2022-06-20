@@ -1,4 +1,5 @@
 // Variables - Constant
+const searchInp = document.querySelector(".search-input");
 const newNoteBtn = document.querySelector(".new-note-btn");
 const sideBtnsContainer = document.querySelector(".side-btns-container");
 const submitNoteBtn = document.querySelector(".submit-note-btn");
@@ -178,7 +179,7 @@ const addNoteCard = (title, note) => {
                 ${++notesCount}
             </p>
             <div>
-                <p class="title text-gray-700">${title}</p>
+                <p class="title w-fit text-gray-700">${title}</p>
                 <p class="note text-sm">
                   ${note.slice(0, 22) + " ..."}
                 </p>
@@ -223,6 +224,30 @@ const initOnLoad = () => {
     setNotesCount();
 };
 
+const searchNotes = (e) => {
+    const searchVal = e.target.value;
+    const noteCards = Array.from(document.querySelector(".notes-list").children);
+    const titleElems = noteCards.map(card => {
+        return card.querySelector(".title");
+    })
+
+    titleElems.forEach(title => {
+        const targetNoteCard = title.parentElement.parentElement.parentElement;
+        const hasSearchVal =
+            title.innerText.toUpperCase().includes(searchVal.toUpperCase());
+        if (!hasSearchVal && searchVal.length > 1) {
+            targetNoteCard.classList.replace("flex", "hidden");
+        } else {
+            targetNoteCard.classList.replace("hidden", "flex");
+            title.classList.add("bg-yellow-200");
+        }
+
+        if (!searchVal) {
+            title.classList.remove("bg-yellow-200");
+        }
+    });
+};
+
 colorInputHandler = (e) => {
     const inputLabel = e.target.parentElement;
     const color = e.target.value;
@@ -235,5 +260,6 @@ newNoteBtn.onclick = showNewTextField;
 submitNoteBtn.onclick = submitNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
+searchInp.oninput = searchNotes;
 
 colorInput.oninput = colorInputHandler;
