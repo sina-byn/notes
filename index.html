@@ -27,6 +27,7 @@
                     },
                     fontSize: {
                         md: '17px',
+                        'default': '20px',
                     },
                     borderWidth: {
                         'px': '1px',
@@ -122,7 +123,8 @@
                 </section>
             </header>
             <div class="notes-list">
-                <div class="note-card flex justify-between text-secondary-medium border-b-px border-secondary border-opacity-75 py-3 px-3">
+                <div
+                    class="note-card flex justify-between text-secondary-medium border-b-px border-secondary border-opacity-75 py-3 px-3">
                     <section>
                         <p
                             class="note-num-disp flex items-center justify-center w-5 h-5 text-gray-700 text-xs border-px border-gray-400 rounded-full mb-2">
@@ -160,63 +162,65 @@
                         class="bg-inherit text-lg border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
                 </div>
                 <textarea cols="30" rows="10"
-                    class="w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6"></textarea>
+                    class="w-full h-[calc(100%_-_4rem)] text-default resize-none px-10 py-6"></textarea>
             </section>
             <section class="show-note-section hidden flex-col items-center w-full h-full bg-gray-50">
                 <div
-                class="title-disp flex items-center justify-center w-full h-16 text-xl font-bold border-b-px border-secondary">
-                
-            </div>
-            <div class="note-disp w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6">
-                
-            </div>
-        </section>
-        <section class="edit-note-section hidden flex-col items-center w-full h-full bg-gray-50">
-            <div class="flex items-center justify-center w-full h-16 border-b-px border-secondary">
-                <label for="edit-title-inp" class="text-lg mr-4">Title :</label>
-                <input type="text" id="edit-title-inp"
-                    class="bg-inherit text-lg text-center border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
-            </div>
-            <textarea cols="30" rows="10"
-                class="w-full h-[calc(100%_-_4rem)] text-md resize-none px-10 py-6"></textarea>
-        </section>
+                    class="title-disp flex items-center justify-center w-full h-16 text-xl font-bold border-b-px border-secondary">
+
+                </div>
+                <div class="note-disp w-full h-[calc(100%_-_4rem)] text-default resize-none px-10 py-6">
+
+                </div>
+            </section>
+            <section class="edit-note-section hidden flex-col items-center w-full h-full bg-gray-50">
+                <div class="flex items-center justify-center w-full h-16 border-b-px border-secondary">
+                    <label for="edit-title-inp" class="text-lg mr-4">Title :</label>
+                    <input type="text" id="edit-title-inp"
+                        class="bg-inherit text-lg text-center border-b-px border-dashed border-gray-400 px-3 pt-1 pb-[3px] focus:border-b-0">
+                </div>
+                <textarea cols="30" rows="10"
+                    class="w-full h-[calc(100%_-_4rem)] text-default resize-none px-10 py-6"></textarea>
+            </section>
         </main>
 
         <!-- Tools Sidebar -->
         <aside
             class="grid grid-cols-2 content-start items-start w-[6%] bg-secondary-light border-l-px border-secondary">
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">&#119809;</button>
+                class="bold-btn w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">&#119809;</button>
             <button type="button"
-                class="w-full aspect-square font-serif font-bold italic border-b-px border-l-px border-secondary active:bg-secondary-medium">I</button>
+                class="italic-btn w-full aspect-square font-serif font-bold italic border-b-px border-l-px border-secondary active:bg-secondary-medium">I</button>
             <button type="button"
-                class="w-full aspect-square font-bold underline border-b-px border-secondary active:bg-secondary-medium">U</button>
+                class="underline-btn w-full aspect-square font-bold underline border-b-px border-secondary active:bg-secondary-medium">U</button>
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-l-px border-secondary active:bg-secondary-medium">C</button>
+                class="capitalize-btn w-full aspect-square font-bold border-b-px border-l-px border-secondary active:bg-secondary-medium">C</button>
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">A</button>
+                class="uppercase-btn w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">A</button>
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-l-px border-secondary active:bg-secondary-medium">a</button>
-            <button type="button" class="w-full aspect-square border-b-px border-secondary active:bg-secondary-medium">
+                class="lowercase-btn w-full aspect-square font-bold border-b-px border-l-px border-secondary active:bg-secondary-medium">a</button>
+            <button type="button"
+                class="align-center-btn w-full aspect-square border-b-px border-secondary active:bg-secondary-medium">
                 <i class="fa-solid fa-align-center"></i>
             </button>
             <button type="button"
-                class="w-full aspect-square border-b-px border-l-px border-secondary active:bg-secondary-medium">
+                class="align-right-btn w-full aspect-square border-b-px border-l-px border-secondary active:bg-secondary-medium">
                 <i class="fa-solid fa-align-right"></i>
             </button>
-            <button type="button" class="w-full aspect-square border-b-px border-secondary active:bg-secondary-medium">
+            <button type="button"
+                class="align-left-btn w-full aspect-square border-b-px border-secondary active:bg-secondary-medium">
                 <i class="fa-solid fa-align-left"></i>
             </button>
             <div
                 class="flex items-center justify-center w-full aspect-square border-b-px border-l-px border-secondary active:bg-secondary-medium">
-                <label for="color-picker" class="w-7/12 aspect-square bg-black cursor-pointer">
-                    <input type="color" id="color-picker" class="invisible">
+                <label for="color-inp" class="w-7/12 aspect-square bg-black cursor-pointer">
+                    <input type="color" id="color-inp" class="invisible">
                 </label>
             </div>
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">&#182;</button>
+                class="rtl-btn w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">&#182;</button>
             <button type="button"
-                class="w-full aspect-square font-bold border-b-px border-r-px border-secondary scale-x-[-1]">
+                class="ltr-btn w-full aspect-square font-bold border-b-px border-r-px border-secondary scale-x-[-1]">
                 &#182;
             </button>
             <div class="col-span-2 flex items-center justify-center w-full border-b-px border-secondary py-2">
@@ -263,10 +267,9 @@
                 <button type="button"
                     class="emoji flex items-center justify-center w-full border-b-px border-l-px border-secondary py-2 active:bg-secondary-medium">&#128309;</button>
                 <button type="button"
-                    class="emoji flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-medium"
-                    title="more emojis">&#10133;</button>
+                    class="emoji flex items-center justify-center w-full border-b-px border-secondary py-2 active:bg-secondary-medium">&#10133;</button>
                 <button type="button"
-                    class="emoji flex items-center justify-center w-full border-b-px border-l-px border-secondary py-2 active:bg-secondary-medium"
+                    class="emojis-guide flex items-center justify-center w-full border-b-px border-l-px border-secondary py-2 active:bg-secondary-medium"
                     title="more emojis">&#128213;</button>
             </section>
             <section class="side-btns-container hidden col-span-2 flex flex-col">
@@ -281,6 +284,7 @@
     </div>
 
     <script src="./js/script.js"></script>
+    <script src="./js/text-editor.js"></script>
 </body>
 
 </html>

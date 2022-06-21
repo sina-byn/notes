@@ -19,11 +19,8 @@ const noteDisp = showNoteSection.querySelector(".note-disp");
 let isAddMode = false,
     isEditModeEnabled = false,
     notesCount = 1,
-    currentNoteIDX,
-    selectionObj;
-
-// Toolbar Variables
-const colorInput = document.querySelector("input[type='color']");
+    activeTextarea,
+    currentNoteIDX;
 
 // Functions
 const showNewTextField = () => {
@@ -33,10 +30,10 @@ const showNewTextField = () => {
     sideBtnsContainer.classList.replace("hidden", "initial");
     showNoteSection.classList.replace("flex", "hidden");
     isAddMode = true;
+    activeTextarea = newNoteInp;
 };
 
 const submitNote = () => {
-    const noteCards = Array.from(document.querySelector(".notes-list").children);
     const title = isEditModeEnabled ? editTitleInp.value : newTitleInp.value;
     const note = isEditModeEnabled ? editNoteInp.value : newNoteInp.value;
     const isValueValid = title.length > 0 && note.length > 0;
@@ -64,6 +61,7 @@ const submitNote = () => {
         }
 
         sideBtnsContainer.classList.replace("initial", "hidden");
+        resetTextEditor();
 
         isAddMode = false;
     }
@@ -89,6 +87,7 @@ const cancelNote = () => {
     sideBtnsContainer.classList.replace("initial", "hidden");
     isAddMode = false;
     isEditModeEnabled = false;
+    activeTextarea = null;
 };
 
 const setNotesCount = () => {
@@ -120,6 +119,7 @@ const showNote = (e) => {
 
         const noteCards = Array.from(targetNoteCard.parentElement.children);
         currentNoteIDX = noteCards.indexOf(targetNoteCard);
+        activeTextarea = null;
     }
 };
 
@@ -139,6 +139,7 @@ const edtiNote = (e) => {
         sideBtnsContainer.classList.replace("hidden", "initial");
 
         isEditModeEnabled = true;
+        activeTextarea = editNoteInp;
     }
 };
 
@@ -254,33 +255,6 @@ const searchNotes = (e) => {
     });
 };
 
-const getSelectedText = (e) => {
-    if (document.selection) {
-        selectionObj = {
-            type: "docSelection",
-            selection: document.selection.createRange().text
-        };
-    } else {
-        const textField = e.target;
-        const textLen = textField.value.length;
-        const selStart = textField.selectionStart;
-        const selEnd = textField.selectionEnd;
-
-        selectionObj = {
-            type: "startEndSelection",
-            textLen,
-            selStart,
-            selEnd,
-        };
-    }
-};
-
-colorInputHandler = (e) => {
-    const inputLabel = e.target.parentElement;
-    const color = e.target.value;
-    inputLabel.style.backgroundColor = color;
-};
-
 // EventListeners
 window.onload = initOnLoad;
 newNoteBtn.onclick = showNewTextField;
@@ -288,6 +262,3 @@ submitNoteBtn.onclick = submitNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
 searchInp.oninput = searchNotes;
-newNoteInp.onmouseup = getSelectedText;
-
-colorInput.oninput = colorInputHandler;
