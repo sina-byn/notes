@@ -17,7 +17,6 @@ const noteDisp = showNoteSection.querySelector(".note-disp");
 
 // Other Variables
 let isAddMode = false,
-    isNoteShown = false,
     isEditModeEnabled = false,
     notesCount = 1,
     currentNoteIDX,
@@ -32,10 +31,12 @@ const showNewTextField = () => {
     newNoteInp.value = "";
     newNoteSection.classList.replace("hidden", "flex");
     sideBtnsContainer.classList.replace("hidden", "initial");
+    showNoteSection.classList.replace("flex", "hidden");
     isAddMode = true;
 };
 
 const submitNote = () => {
+    const noteCards = Array.from(document.querySelector(".notes-list").children);
     const title = isEditModeEnabled ? editTitleInp.value : newTitleInp.value;
     const note = isEditModeEnabled ? editNoteInp.value : newNoteInp.value;
     const isValueValid = title.length > 0 && note.length > 0;
@@ -50,13 +51,14 @@ const submitNote = () => {
             newNoteSection.classList.replace("flex", "hidden");
             newTitleInp.value = "";
             newNoteInp.value = "";
+            showNote();
             indicateShownNote(null);
-            isNoteShown = false;
-        } else if (!isNoteShown) {
+        } else {
             const currentNote = document.querySelectorAll(".note-card")[currentNoteIDX];
             editNoteSection.classList.replace("flex", "hidden");
             currentNote.querySelector(".title").innerText = title;
             currentNote.querySelector(".note").innerText = note;
+            showNote(currentNote);
             indicateShownNote(currentNote);
             isEditModeEnabled = false;
         }
@@ -104,7 +106,9 @@ const setNotesNum = () => {
 
 const showNote = (e) => {
     if (!isEditModeEnabled && !isAddMode) {
-        const targetNoteCard = e.target.parentElement.parentElement;
+        const targetNoteCard = !e ? document.querySelector(".notes-list").lastChild :
+            e.target.parentElement.parentElement;
+        console.log(targetNoteCard);
         const title = targetNoteCard.querySelector(".title").innerText;
         const note = targetNoteCard.querySelector(".note").innerText;
 
@@ -113,7 +117,6 @@ const showNote = (e) => {
         noteDisp.innerText = note;
 
         indicateShownNote(targetNoteCard);
-        isNoteShown = true;
 
         const noteCards = Array.from(targetNoteCard.parentElement.children);
         currentNoteIDX = noteCards.indexOf(targetNoteCard);
@@ -121,7 +124,7 @@ const showNote = (e) => {
 };
 
 const edtiNote = (e) => {
-    if (!isNoteShown && !isAddMode && !isEditModeEnabled) {
+    if (!isAddMode && !isEditModeEnabled) {
         const targetNoteCard = e.target.parentElement.parentElement;
         const noteIDX = targetNoteCard.querySelector(".note-num-disp").innerText - 1;
         const title = targetNoteCard.querySelector(".title").innerText;
@@ -132,7 +135,9 @@ const edtiNote = (e) => {
         editTitleInp.value = title;
         editNoteInp.value = note;
 
+        showNoteSection.classList.replace("flex", "hidden");
         sideBtnsContainer.classList.replace("hidden", "initial");
+
         isEditModeEnabled = true;
     }
 };
