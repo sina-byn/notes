@@ -1,4 +1,5 @@
 // Variables - Constant
+const notesList = document.querySelector(".notes-list");
 const searchInp = document.querySelector(".search-input");
 const newNoteBtn = document.querySelector(".new-note-btn");
 const sideBtnsContainer = document.querySelector(".side-btns-container");
@@ -14,6 +15,8 @@ const editNoteInp = editNoteSection.querySelector("textarea");
 const showNoteSection = document.querySelector(".show-note-section");
 const titleDisp = showNoteSection.querySelector(".title-disp");
 const noteDisp = showNoteSection.querySelector(".note-disp");
+const ascSortBtn = document.querySelector(".fa-arrow-down-1-9");
+const descSortBtn = document.querySelector(".fa-arrow-up-9-1");
 
 // Other Variables
 let isAddMode = false,
@@ -255,6 +258,14 @@ const searchNotes = (e) => {
     });
 };
 
+const setNotesOrder = (dir) => {
+    if (dir === "col") {
+        notesList.classList.replace("flex-col-reverse", "flex-col");
+    } else {
+        notesList.classList.replace("flex-col", "flex-col-reverse");
+    }
+};
+
 // EventListeners
 window.onload = initOnLoad;
 newNoteBtn.onclick = showNewTextField;
@@ -262,3 +273,9 @@ submitNoteBtn.onclick = submitNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
 searchInp.oninput = searchNotes;
+ascSortBtn.onclick = () => {
+    setNotesOrder("col");
+};
+descSortBtn.onclick = () => {
+    setNotesOrder("col-rev")
+};
