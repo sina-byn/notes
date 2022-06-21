@@ -20,7 +20,8 @@ let isAddMode = false,
     isNoteShown = false,
     isEditModeEnabled = false,
     notesCount = 1,
-    currentNoteIDX;
+    currentNoteIDX,
+    selectionObj;
 
 // Toolbar Variables
 const colorInput = document.querySelector("input[type='color']");
@@ -248,6 +249,27 @@ const searchNotes = (e) => {
     });
 };
 
+const getSelectedText = (e) => {
+    if (document.selection) {
+        selectionObj = {
+            type: "docSelection",
+            selection: document.selection.createRange().text
+        };
+    } else {
+        const textField = e.target;
+        const textLen = textField.value.length;
+        const selStart = textField.selectionStart;
+        const selEnd = textField.selectionEnd;
+
+        selectionObj = {
+            type: "startEndSelection",
+            textLen,
+            selStart,
+            selEnd,
+        };
+    }
+};
+
 colorInputHandler = (e) => {
     const inputLabel = e.target.parentElement;
     const color = e.target.value;
@@ -261,5 +283,6 @@ submitNoteBtn.onclick = submitNote;
 resetNoteBtn.onclick = resetNote;
 cancelNoteBtn.onclick = cancelNote;
 searchInp.oninput = searchNotes;
+newNoteInp.onmouseup = getSelectedText;
 
 colorInput.oninput = colorInputHandler;
