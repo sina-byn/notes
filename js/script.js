@@ -26,6 +26,12 @@ let isAddMode = false,
     currentNoteIDX;
 
 // Functions
+const stripHTML = (text) => {
+    const tempDIV = document.createElement('div');
+    tempDIV.innerHTML = text;
+    return tempDIV.textContent || tempDIV.innerText || "";
+};
+
 const showNewTextField = () => {
     newTitleInp.value = "";
     newNoteInp.value = "";
@@ -110,7 +116,6 @@ const showNote = (e) => {
     if (!isEditModeEnabled && !isAddMode) {
         const targetNoteCard = !e ? document.querySelector(".notes-list").lastChild :
             e.target.parentElement.parentElement;
-        console.log(targetNoteCard);
         const title = targetNoteCard.querySelector(".title").innerText;
         const note = targetNoteCard.querySelector(".note").innerText;
 
@@ -182,6 +187,8 @@ const indicateShownNote = (card) => {
 const addNoteCard = (title, note) => {
     const notesList = document.querySelector(".notes-list");
     const noteCard = document.createElement("div");
+    const slicedNote = note.slice(0, 22) + " ...";
+    const strippedNote = stripHTML(slicedNote);
     const cardData = `
         <section>
             <p
@@ -191,7 +198,7 @@ const addNoteCard = (title, note) => {
             <div>
                 <p class="title w-fit text-gray-700">${title}</p>
                 <p class="note text-sm">
-                  ${note.slice(0, 22) + " ..."}
+                  ${strippedNote}
                 </p>
             </div>
         </section>

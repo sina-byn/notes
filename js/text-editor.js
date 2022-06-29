@@ -26,7 +26,7 @@ const getSelectedText = (e) => {
         const selStart = textField.selectionStart;
         const selEnd = textField.selectionEnd;
 
-        return {
+        selectionObj = {
             targetField: e.target,
             valLen,
             selStart,
@@ -56,6 +56,7 @@ const formatSelection = (formatType) => {
             selEnd,
             selection
         } = selectionObj;
+
 
         if (selection && activeTextarea === targetField) {
             let formattedSelection;
