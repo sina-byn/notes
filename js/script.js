@@ -242,6 +242,7 @@ const initOnLoad = () => {
         showBtns[idx].onclick = showNote;
         editBtns[idx].onclick = edtiNote;
     });
+    getSavedNotes();
     setNotesCount();
 };
 
@@ -323,6 +324,18 @@ const removeFromLocalStorage = (idx) => {
         localStorage.setItem("titles", JSON.stringify(titles));
         localStorage.setItem("notes", JSON.stringify(notes));
         localStorage.setItem("notesProps", JSON.stringify(notesProps));
+    }
+};
+
+const getSavedNotes = () => {
+    const savedTitles = JSON.parse(localStorage.getItem("titles"));
+    const savedNotes = JSON.parse(localStorage.getItem("notes"));
+    const savedNotesProps = JSON.parse(localStorage.getItem("notesProps"));
+
+    if (savedTitles && savedNotes && savedNotesProps) {
+        savedNotes.forEach((note, idx) => {
+            addNoteCard(savedTitles[idx], note);
+        });
     }
 };
 
