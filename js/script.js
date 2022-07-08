@@ -158,6 +158,7 @@ const deleteNote = (e) => {
     const targetNoteCard = e.target.parentElement.parentElement;
     const noteCards = Array.from(targetNoteCard.parentElement.children);
     targetNoteCard.remove();
+    removeFromLocalStorage(currentNoteIDX);
     notesCount--;
     setNotesCount();
     setNotesNum();
@@ -302,6 +303,27 @@ const saveToLocalStorage = (idx, title, note, props) => {
     localStorage.setItem("titles", JSON.stringify(titles));
     localStorage.setItem("notes", JSON.stringify(notes));
     localStorage.setItem("notesProps", JSON.stringify(notesProps));
+};
+
+const removeFromLocalStorage = (idx) => {
+    const titles = JSON.parse(localStorage.getItem("titles"));
+    const notes = JSON.parse(localStorage.getItem("notes"));
+    const notesProps = JSON.parse(localStorage.getItem("notesProps"));
+    
+    if (titles && notes && notesProps) {
+        titles.splice(idx, 1);
+        notes.splice(idx, 1);
+        notesProps.splice(idx, 1);
+
+        if(titles.length === 0) {
+            localStorage.clear();
+            return;
+        }
+        
+        localStorage.setItem("titles", JSON.stringify(titles));
+        localStorage.setItem("notes", JSON.stringify(notes));
+        localStorage.setItem("notesProps", JSON.stringify(notesProps));
+    }
 };
 
 // EventListeners
