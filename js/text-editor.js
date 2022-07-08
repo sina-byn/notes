@@ -36,7 +36,7 @@ const getSelectedText = (e) => {
     }
 };
 
-colorInputHandler = (e) => {
+const colorInputHandler = (e) => {
     const inputLabel = colorInp.parentElement;
     const color = e ? colorInp.value : null;
     inputLabel.style.backgroundColor = color ? color : "#000000";
@@ -121,6 +121,26 @@ const resetTextEditor = () => {
     editNoteInp.style.textAlign = "left";
     editNoteInp.setAttribute("dir", "ltr");
     colorInputHandler();
+};
+
+const getNoteProps = () => {
+    if (activeTextarea) {
+        const fontFamily = fontDropDown.value;
+        const fontSize = fontSizeDropDown.value;
+        const textAlign = getComputedStyle(activeTextarea).getPropertyValue('text-align');
+        const dir = activeTextarea.getAttribute('dir') || 'ltr';
+
+        const props = {
+            fontFamily,
+            fontSize,
+            textAlign,
+            dir,
+        };
+
+        return props;
+    } else {
+        throw new Error("Failed to fetch Props for the active text-field");
+    }
 };
 
 // EventListeners

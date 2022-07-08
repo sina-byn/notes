@@ -21,7 +21,7 @@ const descSortBtn = document.querySelector(".fa-arrow-up-9-1");
 // Other Variables
 let isAddMode = false,
     isEditModeEnabled = false,
-    notesCount = 1,
+    notesCount = 0,
     activeTextarea,
     currentNoteIDX;
 
@@ -45,6 +45,7 @@ const showNewTextField = () => {
 const submitNote = () => {
     const title = isEditModeEnabled ? editTitleInp.value : newTitleInp.value;
     const note = isEditModeEnabled ? editNoteInp.value : newNoteInp.value;
+    const props = getNoteProps();
     const isValueValid = title.length > 0 && note.length > 0;
     const isFieldShown =
         Array.from(newNoteSection.classList).indexOf("flex") > -1 ||
@@ -59,6 +60,7 @@ const submitNote = () => {
             newNoteInp.value = "";
             showNote();
             indicateShownNote(null);
+            saveToLocalStorage(null, title, note, props);
         } else {
             const currentNote = document.querySelectorAll(".note-card")[currentNoteIDX];
             editNoteSection.classList.replace("flex", "hidden");
@@ -66,6 +68,7 @@ const submitNote = () => {
             currentNote.querySelector(".note").innerText = note;
             showNote(currentNote);
             indicateShownNote(currentNote);
+            saveToLocalStorage(currentNoteIDX, title, note, props);
             isEditModeEnabled = false;
         }
 
@@ -271,6 +274,34 @@ const setNotesOrder = (dir) => {
     } else {
         notesList.classList.replace("flex-col", "flex-col-reverse");
     }
+};
+
+const saveToLocalStorage = (idx, title, note, props) => {
+    let titles, notes, notesProps;
+
+    if (!localStorage.getItem("titles")) {
+        titles = [];
+        notes = [];
+        notesProps = [];
+    } else {
+        titles = JSON.parse(localStorage.getItem("titles"));
+        notes = JSON.parse(localStorage.getItem("notes"));
+        notesProps = JSON.parse(localStorage.getItem("notesProps"));
+    }
+
+    if (idx !== null) {
+        titles[idx] = title;
+        notes[idx] = note;
+        notesProps[idx] = props;
+    } else {
+        titles.push(title);
+        notes.push(note);
+        notesProps.push(props);
+    }
+
+    localStorage.setItem("titles", JSON.stringify(titles));
+    localStorage.setItem("notes", JSON.stringify(notes));
+    localStorage.setItem("notesProps", JSON.stringify(notesProps));
 };
 
 // EventListeners
