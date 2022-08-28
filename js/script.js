@@ -65,7 +65,7 @@ const submitNote = () => {
             const currentNote = document.querySelectorAll(".note-card")[currentNoteIDX];
             editNoteSection.classList.replace("flex", "hidden");
             currentNote.querySelector(".title").innerText = title;
-            currentNote.querySelector(".note").innerText = note;
+            currentNote.querySelector(".note-container").value = note;
             showNote(currentNote);
             indicateShownNote(currentNote);
             saveToLocalStorage(currentNoteIDX, title, note, props);
@@ -128,7 +128,6 @@ const showNote = (e) => {
 
         indicateShownNote(targetNoteCard);
 
-
         const noteCards = Array.from(targetNoteCard.parentElement.children);
         currentNoteIDX = noteCards.indexOf(targetNoteCard);
         activeTextarea = null;
@@ -140,7 +139,7 @@ const edtiNote = (e) => {
         const targetNoteCard = e.target.parentElement.parentElement;
         const noteIDX = targetNoteCard.querySelector(".note-num-disp").innerText - 1;
         const title = targetNoteCard.querySelector(".title").innerText;
-        const note = targetNoteCard.querySelector(".note").innerText;
+        const note = targetNoteCard.querySelector(".note-container").value;
 
         currentNoteIDX = noteIDX;
         editNoteSection.classList.replace("hidden", "flex");
