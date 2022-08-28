@@ -120,13 +120,14 @@ const showNote = (e) => {
         const targetNoteCard = !e ? document.querySelector(".notes-list").lastChild :
             e.target.parentElement.parentElement;
         const title = targetNoteCard.querySelector(".title").innerText;
-        const note = targetNoteCard.querySelector(".note").innerText;
+        const note = targetNoteCard.querySelector(".note-container").value;
 
         showNoteSection.classList.replace("hidden", "flex");
         titleDisp.innerText = title;
-        noteDisp.innerText = note;
+        noteDisp.innerHTML = note;
 
         indicateShownNote(targetNoteCard);
+
 
         const noteCards = Array.from(targetNoteCard.parentElement.children);
         currentNoteIDX = noteCards.indexOf(targetNoteCard);
@@ -191,22 +192,26 @@ const indicateShownNote = (card) => {
 const addNoteCard = (title, note) => {
     const notesList = document.querySelector(".notes-list");
     const noteCard = document.createElement("div");
+    // --------------
+    // --------------
     const slicedNote = note.slice(0, 22) + " ...";
     const strippedNote = stripHTML(slicedNote);
     const cardData = `
-        <section>
-            <p
-                class="note-num-disp flex items-center justify-center w-5 h-5 text-gray-700 text-xs border-px border-gray-400 rounded-full mb-2">
-                ${++notesCount}
-            </p>
-            <div>
+    <section>
+    <p
+    class="note-num-disp flex items-center justify-center w-5 h-5 text-gray-700 text-xs border-px border-gray-400 rounded-full mb-2">
+    ${++notesCount}
+    </p>
+    <div>
                 <p class="title w-fit text-gray-700">${title}</p>
                 <p class="note text-sm">
-                  ${strippedNote}
+                ${strippedNote}
                 </p>
-            </div>
-        </section>
+                </div>
+                </section>
     `;
+
+    const noteContainer = document.createElement('input');
     const cardBtns = document.createElement("section");
     const showBtn = document.createElement("i");
     const editBtn = document.createElement("i");
@@ -224,9 +229,13 @@ const addNoteCard = (title, note) => {
     cardBtns.append(editBtn);
     cardBtns.append(deleteBtn);
 
+    noteContainer.type = 'hidden';
+    noteContainer.value = note;
+    noteContainer.className = 'note-container';
+
     noteCard.className = "note-card flex justify-between text-secondary-medium border-b-px border-secondary border-opacity-75 py-3 px-3";
     noteCard.innerHTML = cardData;
-    noteCard.append(cardBtns);
+    noteCard.append(cardBtns, noteContainer);
     notesList.append(noteCard);
 
     isAddMode = false;
@@ -310,17 +319,17 @@ const removeFromLocalStorage = (idx) => {
     const titles = JSON.parse(localStorage.getItem("titles"));
     const notes = JSON.parse(localStorage.getItem("notes"));
     const notesProps = JSON.parse(localStorage.getItem("notesProps"));
-    
+
     if (titles && notes && notesProps) {
         titles.splice(idx, 1);
         notes.splice(idx, 1);
         notesProps.splice(idx, 1);
 
-        if(titles.length === 0) {
+        if (titles.length === 0) {
             localStorage.clear();
             return;
         }
-        
+
         localStorage.setItem("titles", JSON.stringify(titles));
         localStorage.setItem("notes", JSON.stringify(notes));
         localStorage.setItem("notesProps", JSON.stringify(notesProps));
