@@ -9,6 +9,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
         integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./js/script.js" defer></script>
+    <script src="./js/text-editor.js" defer></script>
+    <script src="./js/app.js" defer></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -38,11 +41,21 @@
     </script>
 </head>
 
-<body class="min-h-screen">
-    <div class="container flex w-full max-w-[1600px] h-full">
+<body class="h-screen w-screen">
+    <div class="container flex max-w-[1600px] bg-transparent h-full relative overflow-hidden">
+        <div
+            class="menu-icon h-24 md:hidden w-10 fixed left-0 top-20 transition-all duration-300 z-10 flex items-center justify-center cursor-pointer text-gray-200 bg-primary-dark rounded-r-lg">
+            <i class="fa-solid fa-close hidden"></i>
+            <i class="fa-solid fa-bars"></i>
+        </div>
+        <div
+            class="notes-list-icon h-24 md:hidden w-10 fixed left-0 top-44 transition-all duration-300 z-10 flex items-center justify-center cursor-pointer text-gray-200 bg-secondary-dark rounded-r-lg">
+            <i class="fa-solid fa-close hidden"></i>
+            <i class="fa-solid fa-list-ol"></i>
+        </div>
         <!-- Sidebar - Menu -->
         <aside
-            class="flex flex-col justify-between w-[17%] h-screen bg-primary-dark text-primary-light text-sm font-bold py-5">
+            class="fixed md:static top-0 left-0 -translate-x-full md:translate-x-0 transition-all duration-300 flex flex-col justify-between w-[240px] md:w-[17%] md:min-w-[250px] h-screen bg-primary-dark text-primary-light text-sm font-bold py-5">
             <section>
                 <section class="user-profile flex items-center gap-x-3 pl-3">
                     <img src="./assets/images/sample.jfif" alt="Profile" class="w-10 rounded-full">
@@ -111,7 +124,8 @@
         </aside>
 
         <!-- All Notes Section -->
-        <section class="w-[20%] h-screen bg-secondary-light border-px border-secondary">
+        <section
+            class="fixed md:static top-0 left-0 -translate-x-full md:translate-x-0 transition-all duration-300 w-[240px] md:w-[20%] h-screen bg-secondary-light border-px border-secondary">
             <header class="font-bold text-secondary-medium">
                 <h2 class="text-xl text-black mt-5 ml-2">All Notes</h2>
                 <section class="flex justify-between text-xs border-b-px border-secondary mt-10 px-3 pb-2">
@@ -123,31 +137,11 @@
                 </section>
             </header>
             <div class="notes-list flex flex-col">
-                <!-- <div
-                    class="note-card flex justify-between text-secondary-medium border-b-px border-secondary border-opacity-75 py-3 px-3">
-                    <section>
-                        <p
-                            class="note-num-disp flex items-center justify-center w-5 h-5 text-gray-700 text-xs border-px border-gray-400 rounded-full mb-2">
-                            1
-                        </p>
-                        <div>
-                            <p class="title w-fit text-gray-700">Your First Note</p>
-                            <p class="note text-sm">
-                                Do Homework as supposed ...
-                            </p>
-                        </div>
-                    </section>
-                    <section class="flex flex-col items-center justify-center gap-y-2">
-                        <i class="show-note-btn fa-solid fa-external-link cursor-pointer hover:text-gray-600"></i>
-                        <i class="edit-note-btn fa-solid fa-edit cursor-pointer hover:text-gray-600"></i>
-                        <i class="delete-note-btn fa-solid fa-trash cursor-pointer hover:text-gray-600"></i>
-                    </section>
-                </div> -->
             </div>
         </section>
 
         <!-- Main -->
-        <main class="w-[57%] relative">
+        <main class="w-full md:w-[57%] relative">
             <div class="banner flex flex-col items-center justify-center gap-y-5 w-full h-full absolute -z-10">
                 <img src="./assets/images/note.svg" alt="Note Icon" class="w-1/3">
                 <div class="text-xl font-bold select-none">
@@ -186,7 +180,7 @@
 
         <!-- Tools Sidebar -->
         <aside
-            class="grid grid-cols-2 content-start items-start w-[6%] bg-secondary-light border-l-px border-secondary">
+            class="hidden md:grid grid-cols-2 content-start items-start w-[6%] bg-secondary-light border-l-px border-secondary">
             <button type="button"
                 class="bold-btn w-full aspect-square font-bold border-b-px border-secondary active:bg-secondary-medium">&#119809;</button>
             <button type="button"
@@ -282,9 +276,6 @@
             </section>
         </aside>
     </div>
-
-    <script src="./js/script.js"></script>
-    <script src="./js/text-editor.js"></script>
 </body>
 
 </html>
